@@ -1,0 +1,1 @@
+{"name":"PFC 旧データ救出","short_name":"PFC救出","description":"旧PFCのブラウザ保存データを端末内だけで安全に救出するツール","start_url":"./","scope":"./","display":"standalone","background_color":"#f1faf5","theme_color":"#187a51","icons":[{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
