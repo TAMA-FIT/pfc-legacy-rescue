@@ -6,134 +6,110 @@
 <meta name="theme-color" content="#187a51">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="PFC復元">
-<title>PFCデータ復元</title>
-<meta name="description" content="旧PFCのバックアップを使って新PFCへデータを移すための案内・救出ツール">
+<meta name="apple-mobile-web-app-title" content="PFC救出">
+<title>PFCデータ救出 - iPhone</title>
+<meta name="description" content="iPhone Safariに残っている旧PFCデータを救出して新PFCへ戻すための専用ページ">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <style>
-:root{--g:#187a51;--bg:#f1faf5;--ink:#172820;--muted:#66776f;--line:#d9e8df;--white:#fff;--warn:#9b5d00;--shadow:0 10px 32px rgba(18,60,40,.08)}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;background:var(--bg)}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
-button,a,input,textarea{font:inherit}.shell{width:min(760px,100%);margin:auto;padding:calc(22px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom))}
-.hero{display:flex;gap:14px;align-items:flex-start;padding:12px 4px 18px}.mark{width:54px;height:54px;flex:0 0 54px;border-radius:17px;display:grid;place-items:center;background:var(--g);color:#fff;font-weight:900;box-shadow:var(--shadow)}
-.eyebrow{margin:2px 0 5px;font-size:11px;letter-spacing:.12em;color:var(--g);font-weight:900}h1{font-size:clamp(28px,7vw,42px);line-height:1.08;margin:0 0 10px}h2{font-size:20px;margin:0 0 12px}.lead{margin:0;color:var(--muted);line-height:1.7}
-.card,.notice{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:var(--shadow)}.notice{border-left:5px solid var(--warn);box-shadow:none}.notice strong{color:var(--warn)}.notice p{margin:8px 0 0;line-height:1.7}
-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;overflow-wrap:anywhere}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid div{padding:13px;border-radius:14px;background:#f6fbf8;border:1px solid var(--line)}.grid b,.grid span{display:block}.grid b{font-size:14px}.grid span{font-size:12px;color:var(--muted);margin-top:4px}
-.safe{margin:14px 0 0;padding:11px 12px;border-radius:12px;background:#edf9f3;color:#126a45;font-weight:700;font-size:13px;line-height:1.6}.section-head{display:flex;align-items:center;gap:10px}.step{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e7f6ee;color:var(--g);font-size:11px;font-weight:900}.section-head h2{margin:0}
-.primary,.secondary,.bookmark,.file-button{display:block;width:100%;border:0;border-radius:14px;padding:15px 16px;text-align:center;text-decoration:none;font-weight:900;cursor:pointer}.primary,.bookmark,.file-button{background:var(--g);color:white}.secondary{background:#e9f4ee;color:var(--g);margin-top:10px}.bookmark{margin-top:12px}.bookmark.alt{background:#20352a}.file-button input{display:none}
-.codebox{width:100%;height:88px;margin-top:10px;padding:11px;border:1px solid var(--line);border-radius:12px;background:#f7faf8;color:#405048;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;resize:vertical}.hint{font-size:12px;color:var(--muted);line-height:1.6}
-.inspection{margin-top:14px;padding:14px;border-radius:14px;border:1px solid var(--line);background:#f7fbf9}.inspection dl{display:grid;grid-template-columns:1fr auto;gap:7px 12px;margin:0}.inspection dt{color:var(--muted)}.inspection dd{margin:0;font-weight:900}.ok{color:var(--g)}.bad{color:#a43737}.hidden{display:none!important}
-.privacy ul{padding-left:20px}.privacy li{margin:8px 0;line-height:1.6}footer{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;padding:18px 5px}.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;background:#172820;color:#fff;padding:11px 14px;border-radius:999px;font-size:13px;box-shadow:var(--shadow)}
-details summary{list-style:none}details summary::-webkit-details-marker{display:none}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.card,.notice{padding:17px}.hero{padding-top:5px}}
+:root{--g:#187a51;--bg:#f2f8f5;--ink:#172820;--muted:#617069;--line:#dbe7e0;--white:#fff;--warn:#9b5d00}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+button,a{font:inherit}
+.wrap{width:min(680px,100%);margin:auto;padding:calc(20px + env(safe-area-inset-top)) 15px calc(44px + env(safe-area-inset-bottom))}
+.hero{padding:6px 4px 14px}.eyebrow{margin:0 0 6px;color:var(--g);font-size:12px;font-weight:900}
+h1{margin:0 0 8px;font-size:32px;line-height:1.15}h2{margin:0 0 10px;font-size:21px}
+.lead{margin:0;color:var(--muted);line-height:1.65}
+.card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:18px;margin:13px 0}
+.notice{background:#fff8e8;border-color:#efd7a2}.notice b{color:var(--warn)}
+.stephead{display:flex;gap:9px;align-items:center;margin-bottom:10px}
+.num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--g);color:#fff;font-weight:900;flex:0 0 30px}
+.steps{margin:0;padding:0;list-style:none}
+.steps li{padding:12px 0;border-top:1px solid #edf2ef;line-height:1.65}
+.steps li:first-child{border-top:0;padding-top:4px}
+.steps b{display:block;margin-bottom:2px}
+.small{font-size:13px;color:var(--muted);line-height:1.6}
+.primary,.secondary{width:100%;display:block;border:0;border-radius:15px;padding:15px 14px;text-align:center;text-decoration:none;font-weight:900;cursor:pointer}
+.primary{background:var(--g);color:#fff}.secondary{background:#e8f3ed;color:var(--g);margin-top:10px}
+.mock{margin:10px 0 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.mock div{display:grid;grid-template-columns:70px 1fr;gap:10px;padding:11px 12px;border-top:1px solid var(--line);background:#fafcfb}
+.mock div:first-child{border-top:0}.mock span{color:var(--muted);font-size:13px}.mock strong{font-size:14px}
+.okbox{margin-top:12px;padding:12px;border-radius:13px;background:#edf8f2;color:#126a45;font-weight:800;line-height:1.6}
+.stop{margin-top:12px;padding:12px;border-radius:13px;background:#f5f5f5;color:#4f5b55;font-size:13px;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;background:#172820;color:white;padding:11px 15px;border-radius:999px;font-size:13px;white-space:nowrap}
+footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
 </style>
 </head>
-
 <body>
-<main class="shell">
+<main class="wrap">
 <header class="hero">
-  <div class="mark">PFC</div>
-  <div>
-    <p class="eyebrow">TAMA FIT / PFC DATA RECOVERY</p>
-    <h1>PFCデータ復元</h1>
-    <p class="lead">難しい操作は後回しです。まずは旧PFCに元からあるバックアップ機能を使います。</p>
-  </div>
+  <p class="eyebrow">iPhone Safari専用</p>
+  <h1>昔のPFCデータを救出</h1>
+  <p class="lead">このページはiPhoneで使います。PC用の操作や難しい説明はありません。</p>
 </header>
 
-<section class="notice">
-  <strong>まずこれだけ</strong>
-  <p>旧GitHubアカウント <code>r9222</code> は停止済みなので、<b>404になるのが通常です。</b> まず本命の旧PFC URLを開きます。昔のPWA / Service Workerキャッシュが端末に残っていれば、正しいパスから旧アプリが復活する可能性があります。</p>
+<section class="card notice">
+  <b>最初に：Safariの履歴・Webサイトデータは消さないでください。</b>
+  <p class="small">旧GitHubアカウントは停止済みなので、昔のPFCを開くと404になることがあります。それで正常です。</p>
 </section>
 
 <section class="card">
-  <div class="section-head"><span class="step">1</span><h2>旧PFCを開く</h2></div>
-  <p>ホーム画面に昔のPFCアプリが残っている場合は、そのアイコンを先に試してください。残っていない場合は下の本命URLを開きます。404でも異常ではありません。</p>
-  <a class="primary" href="https://r9222.github.io/tamafittest0217-HP/" target="_blank" rel="noopener">旧PFCを開く</a>
-  <button class="secondary" data-copy-text="https://r9222.github.io/tamafittest0217-HP/">旧PFC URLをコピー</button>
-  <p class="hint"><b>旧PFC URL</b><br><code>https://r9222.github.io/tamafittest0217-HP/</code></p>
-</section>
-
-<section class="card">
-  <div class="section-head"><span class="step">2</span><h2>旧PFCが復活した場合だけバックアップ</h2></div>
-  <p>旧PFC本体が表示できた場合だけ、画面の一番下まで移動して次のボタンを押します。404のままならこの手順は飛ばし、下の「404のままの場合」を使います。</p>
-  <div class="safe" style="font-size:16px;text-align:center">💾 バックアップをダウンロード保存</div>
-  <p class="hint">保存されるファイル名は <code>pfc_backup_日付.json</code> の形式です。</p>
-</section>
-
-<section class="card">
-  <div class="section-head"><span class="step">3</span><h2>新PFCで読み込む</h2></div>
-  <p>バックアップが保存できたら新PFCを開き、画面下部の「📥 バックアップを読み込み・復元」から、さきほど保存したJSONを選びます。</p>
-  <a class="primary" href="https://tama-fit.github.io/pfc-mirror/" target="_blank" rel="noopener">新PFCを開く</a>
-  <button class="secondary" data-copy-text="https://tama-fit.github.io/pfc-mirror/">新PFC URLをコピー</button>
-  <p class="hint"><b>新PFC URL</b><br><code>https://tama-fit.github.io/pfc-mirror/</code></p>
-</section>
-
-<section class="card">
-  <h2>この簡単な方法で移るもの</h2>
-  <div class="grid">
-    <div><b>食事・今日の記録</b><span>移行対象</span></div>
-    <div><b>履歴・目標</b><span>移行対象</span></div>
-    <div><b>お気に入り・My食品</b><span>移行対象</span></div>
-    <div><b>体組成</b><span>移行対象</span></div>
-  </div>
-  <p class="notice" style="margin:14px 0 0"><strong>体型写真だけ別です</strong><br>写真は通常バックアップJSONに入っていません。写真も必要な場合だけ、下の「うまくいかない場合・写真も救出」を使います。</p>
-</section>
-
-<details class="card">
-  <summary style="cursor:pointer;font-weight:900;font-size:18px">404のままの場合 / 体型写真も救出したい</summary>
-  <div style="margin-top:18px">
-    <p>アカウント停止で404でも、Safari内の旧 <code>r9222.github.io</code> の保存データ自体は残っている可能性があります。新サイトからはブラウザの安全仕様で直接読めないため、ここだけ旧404ページ上で救出処理を実行します。</p>
-    <p class="safe">旧PFCの保存領域は読み取り専用で扱い、救出データをサーバーへ送信しません。</p>
-    <div class="section-head" style="margin-top:18px"><span class="step">救出</span><h2>救出コード</h2></div>
-    <button class="primary" data-copy-runtime="rescue">救出コードをコピー</button>
-    <textarea id="rescue-code" class="codebox" readonly></textarea>
-    <p class="hint">iPhone Safariでは、旧PFCの404ページ上でコードを実行するためにブックマークレット設定が必要です。これは通常バックアップが使えない場合だけの最終手段です。</p>
-    <a id="rescue-drag" class="bookmark" href="#">PC用：PFC救出をブックマークバーへドラッグ</a>
-
-    <div class="section-head" style="margin-top:24px"><span class="step">確認</span><h2>救出JSONを検査</h2></div>
-    <label class="file-button"><input id="inspect-file" type="file" accept=".json,application/json">救出JSONを選択</label>
-    <div id="inspection" class="inspection hidden"></div>
-    <button id="export-core" class="secondary hidden">写真を除いたPFC本体用JSONを保存</button>
-
-    <div class="section-head" style="margin-top:24px"><span class="step">写真復元</span><h2>写真まで新PFCへ戻す</h2></div>
-    <button class="primary" data-copy-runtime="restore">写真復元コードをコピー</button>
-    <textarea id="restore-code" class="codebox" readonly></textarea>
-    <a id="restore-drag" class="bookmark alt" href="#">PC用：PFC写真復元をブックマークバーへドラッグ</a>
-  </div>
-</details>
-
-<section class="card privacy">
-  <h2>大事なこと</h2>
-  <ul>
-    <li>ブラウザの履歴・サイトデータ・キャッシュは消さないでください。</li>
-    <li>旧PFCの正しいURLは <code>https://r9222.github.io/tamafittest0217-HP/</code> です。</li>
-    <li>旧PFCの標準バックアップには体型写真は含まれません。</li>
+  <div class="stephead"><span class="num">1</span><h2>「PFC救出」を1回だけ作る</h2></div>
+  <ul class="steps">
+    <li><b>① このページをSafariのブックマークに追加</b>Safari下の「共有（□に↑）」→「ブックマークを追加」→「保存」。</li>
+    <li><b>② 下のボタンを押す</b>貼り付ける内容が自動でコピーされます。中身を見る必要はありません。</li>
   </ul>
+  <button id="copy-rescue" class="primary">貼り付けるものをコピー</button>
+  <ul class="steps" style="margin-top:12px">
+    <li><b>③ Safariの「本のマーク」→「ブックマーク」→「編集」</b>さっき追加した「PFCデータ救出」を開きます。</li>
+    <li><b>④ 名前を「PFC救出」にする</b></li>
+    <li><b>⑤ URL欄の文字を全部消す → 長押し →「ペースト」→「完了」</b>貼る場所は下の図の「URL」の欄です。</li>
+  </ul>
+  <div class="mock">
+    <div><span>名前</span><strong>PFC救出</strong></div>
+    <div><span>URL</span><strong>ここを全部消して → ペースト</strong></div>
+  </div>
+  <div class="okbox">ここまで終われば、今後は「PFC救出」をタップするだけです。</div>
 </section>
 
-<footer><span id="runtime-status">PWA確認中…</span><span>v1.2.0</span></footer>
+<section class="card">
+  <div class="stephead"><span class="num">2</span><h2>昔のPFCを開いて救出する</h2></div>
+  <ul class="steps">
+    <li><b>① 下の「昔のPFCを開く」を押す</b>404画面になってもそのままで大丈夫です。</li>
+    <li><b>② その404画面で「本のマーク」→「PFC救出」をタップ</b>「ブックマークを実行」など難しく考えなくてOKです。保存した「PFC救出」を普通にタップするだけです。</li>
+    <li><b>③ 「旧データを検出しました」が出たら「JSONを保存・共有」</b>共有画面で「ファイルに保存」を選びます。</li>
+  </ul>
+  <a class="primary" href="https://r9222.github.io/tamafittest0217-HP/" target="_blank" rel="noopener">昔のPFCを開く</a>
+  <div class="stop">「PFC救出」を押しても何も出ない場合は、そこで止めてスクリーンショットを送ってください。Safariのデータは消さないでください。</div>
+</section>
+
+<section class="card">
+  <div class="stephead"><span class="num">3</span><h2>新しいPFCへ戻す</h2></div>
+  <ul class="steps">
+    <li><b>① 救出ファイルを保存できたら、このページへ戻る</b></li>
+    <li><b>② 下の「新しいPFCを開く」を押す</b></li>
+    <li><b>③ 新PFCの一番下にある「📥 バックアップを読み込み・復元」を押す</b>さっき保存した <strong>PFC_rescue_full_...</strong> のJSONファイルを選びます。</li>
+  </ul>
+  <a class="primary" href="https://tama-fit.github.io/pfc-mirror/" target="_blank" rel="noopener">新しいPFCを開く</a>
+  <p class="small">救出JSONには体型写真も残してあります。通常のPFC復元で写真まで反映されなくても、救出ファイル自体は消さずに保管してください。</p>
+</section>
+
+<footer>v1.3.0 / iPhone専用</footer>
 </main>
 
 <script>
 (()=>{'use strict';
-const BASE=new URL('.',location.href).href.replace(/\/$/,'');
-const mk=(url,kind)=>`javascript:(()=>{if(document.querySelector('script[data-pfc-rescue-runtime="${kind}"]'))return;const s=document.createElement('script');s.src=${JSON.stringify(url)};s.dataset.pfcRescueRuntime=${JSON.stringify(kind)};s.onerror=()=>alert('PFC救出runtimeを読み込めませんでした。通信状態を確認してください。');document.documentElement.appendChild(s)})()`;
-const rescueCode=mk(BASE+'/rescue-runtime.js?v=1.2.0','rescue');
-const restoreCode=mk(BASE+'/restore-runtime.js?v=1.2.0','restore');
-document.getElementById('rescue-code').value=rescueCode;
-document.getElementById('restore-code').value=restoreCode;
-document.getElementById('rescue-drag').href=rescueCode;
-document.getElementById('restore-drag').href=restoreCode;
-function toast(x){const e=document.createElement('div');e.className='toast';e.textContent=x;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
-async function copyText(x){try{await navigator.clipboard.writeText(x);return true}catch(_){}const a=document.createElement('textarea');a.value=x;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}a.remove();return ok}
-document.querySelectorAll('[data-copy-text]').forEach(b=>b.onclick=async()=>toast(await copyText(b.dataset.copyText)?'URLをコピーしました':'コピーできませんでした'));
-document.querySelectorAll('[data-copy-runtime]').forEach(b=>b.onclick=async()=>toast(await copyText(b.dataset.copyRuntime==='restore'?restoreCode:rescueCode)?'救出コードをコピーしました':'コピーできませんでした'));
-let inspected=null;const inp=document.getElementById('inspect-file'),out=document.getElementById('inspection'),split=document.getElementById('export-core'),fields=['dat','tg','fav','favSettings','my','hist','date','body'];
-function analyze(d){const m=d&&typeof d._pfcRescue==='object'?d._pfcRescue:{};const found=fields.filter(k=>typeof d?.[k]==='string'&&d[k]);const bad=fields.filter(k=>d?.[k]!=null&&typeof d[k]!=='string');const raw=m.rawPfcStorage&&typeof m.rawPfcStorage==='object'?Object.keys(m.rawPfcStorage).length:0;const photos=Array.isArray(m.bodyPhotos)?m.bodyPhotos.length:0;return{valid:!!d&&typeof d==='object'&&!Array.isArray(d)&&!bad.length&&(found.length||raw||photos),found,raw,photos,m}}
-inp.onchange=async()=>{const f=inp.files?.[0];if(!f)return;try{inspected=JSON.parse(await f.text());const a=analyze(inspected);out.classList.remove('hidden');out.innerHTML=`<dl><dt>判定</dt><dd class="${a.valid?'ok':'bad'}">${a.valid?'有効':'確認が必要'}</dd><dt>PFC主要項目</dt><dd>${a.found.length}/8</dd><dt>追加保存キー</dt><dd>${a.raw}</dd><dt>体型写真</dt><dd>${a.photos}枚</dd><dt>救出元</dt><dd>${String(a.m.sourceOrigin||'不明').replace(/[<>&]/g,'')}</dd></dl>`;split.classList.toggle('hidden',!a.valid)}catch(e){inspected=null;out.classList.remove('hidden');out.innerHTML='<span class="bad">JSONを読み込めませんでした。</span>';split.classList.add('hidden')}};
-async function save(file){try{if(navigator.canShare?.({files:[file]})&&navigator.share){await navigator.share({files:[file],title:'PFCバックアップ'});return}}catch(e){if(e?.name==='AbortError')return}const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=file.name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
-split.onclick=async()=>{if(!inspected)return;const d={};fields.forEach(k=>d[k]=inspected[k]??null);d._pfcRescue={format:'pfc-core-import-v1',createdAt:new Date().toISOString(),photosExcluded:true};await save(new File([JSON.stringify(d,null,2)],`PFC_core_import_${new Date().toISOString().slice(0,10)}.json`,{type:'application/json'}))};
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').then(()=>document.getElementById('runtime-status').textContent='PWA / オフライン対応').catch(()=>document.getElementById('runtime-status').textContent='Web版で利用中');
+const runtime=new URL('./rescue-runtime.js?v=1.3.0',location.href).href;
+const code=`javascript:(()=>{if(document.querySelector('script[data-pfc-rescue-runtime="rescue"]'))return;const s=document.createElement('script');s.src=${JSON.stringify(runtime)};s.dataset.pfcRescueRuntime='rescue';s.onerror=()=>alert('PFC救出を読み込めませんでした。通信状態を確認してください。');document.documentElement.appendChild(s)})()`;
+function toast(text){const e=document.createElement('div');e.className='toast';e.textContent=text;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
+async function copyText(text){
+  try{await navigator.clipboard.writeText(text);return true}catch(_){}
+  const a=document.createElement('textarea');a.value=text;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();
+  let ok=false;try{ok=document.execCommand('copy')}catch(_){}
+  a.remove();return ok;
+}
+document.getElementById('copy-rescue').onclick=async()=>toast(await copyText(code)?'コピーしました。次はブックマークを編集します。':'コピーできませんでした。');
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script>
 </body>
