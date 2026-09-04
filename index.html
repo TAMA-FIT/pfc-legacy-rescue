@@ -45,13 +45,13 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
 <header class="hero">
   <p class="eyebrow">iPhone Safari専用</p>
   <h1>昔のPFCデータを救出</h1>
-  <p class="lead">このページはiPhoneで使います。PC用の操作や難しい説明はありません。</p>
+  <p class="lead">ホーム画面のPFCが「Safariのショートカット」だった場合に、Safariへ残っている旧PFCデータを確認して救出します。</p>
 </header>
 
 <section class="card notice">
-  <b>最初に：Safariの履歴・Webサイトデータは消さないでください。</b>
-  <p class="small">旧GitHubアカウントは停止済みなので、昔のPFCを開くと404になることがあります。それで正常です。</p>
-  <div class="stop">前に作った「PFC救出」は今回の修正前のものです。下の「修正版をコピー」でURLを上書きしてください。</div>
+  <b>最初に：Safariの履歴・Webサイトデータは絶対に消さないでください。</b>
+  <p class="small">ホーム画面のアイコンを消していても、それがSafariショートカットだったならSafari側のデータは残っている可能性があります。このページで実際に確認します。</p>
+  <div class="stop">昔のPFCは <strong>https://tamafit.github.io/pfc/</strong> です。今は404でも問題ありません。404画面と昔のPFCは同じSafari保存領域を使います。</div>
 </section>
 
 <section class="card">
@@ -70,18 +70,19 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
     <div><span>名前</span><strong>PFC救出</strong></div>
     <div><span>URL</span><strong>ここを全部消して → ペースト</strong></div>
   </div>
-  <div class="okbox">ここまで終われば、今後は「PFC救出」をタップするだけです。</div>
+  <div class="okbox">ここまで終われば、404画面で「PFC救出」をタップするだけです。</div>
 </section>
 
 <section class="card">
-  <div class="stephead"><span class="num">2</span><h2>昔のPFCを開いて救出する</h2></div>
+  <div class="stephead"><span class="num">2</span><h2>Safariに旧PFCデータが残っているか確認</h2></div>
   <ul class="steps">
-    <li><b>① 下の「昔のPFCを開く」を押す</b>404画面になってもそのままで大丈夫です。</li>
-    <li><b>② その404画面で「本のマーク」→「PFC救出」をタップ</b>「ブックマークを実行」など難しく考えなくてOKです。保存した「PFC救出」を普通にタップするだけです。</li>
-    <li><b>③ 「旧データを検出しました」が出たら「JSONを保存・共有」</b>共有画面で「ファイルに保存」を選びます。</li>
+    <li><b>① 下の「昔のPFCを開く」を押す</b>404画面になっても正常です。そのまま閉じないでください。</li>
+    <li><b>② 404画面で「本のマーク」→「PFC救出」をタップ</b>保存した「PFC救出」を普通にタップするだけです。</li>
+    <li><b>③ 判定結果を見る</b>「Safari側に旧PFCデータが残っています」と出れば救出可能です。「Safari側にはPFCデータが見つかりません」と出れば、ショートカット説では救出できません。</li>
+    <li><b>④ データが見つかった場合だけ「JSONを保存・共有」</b>共有画面で「ファイルに保存」を選びます。</li>
   </ul>
   <a class="primary" href="https://tamafit.github.io/pfc/" target="_blank" rel="noopener">昔のPFCを開く</a>
-  <div class="stop">「PFC救出」を押しても何も出ない場合は、そこで止めてスクリーンショットを送ってください。Safariのデータは消さないでください。</div>
+  <div class="stop">何も出ない、または「見つかりません」と出た場合は、その画面をスクリーンショットしてください。Safariの履歴・Webサイトデータは消さないでください。</div>
 </section>
 
 <section class="card">
@@ -95,7 +96,7 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
   <p class="small">救出JSONには体型写真も残してあります。通常のPFC復元で写真まで反映されなくても、救出ファイル自体は消さずに保管してください。</p>
 </section>
 
-<footer>v1.6.0 / iPhone専用</footer>
+<footer>v1.7.0 / Safariショートカット救出</footer>
 </main>
 
 <script>
@@ -125,7 +126,7 @@ function manualCopy(text){
 }
 async function prepareBookmarklet(){
   try{
-    const r=await fetch('./rescue-runtime.js?v=1.6.0',{cache:'no-store'});
+    const r=await fetch('./rescue-runtime.js?v=1.7.0',{cache:'no-store'});
     if(!r.ok)throw new Error('rescue runtime unavailable');
     const source=(await r.text()).trim();
     if(!source.startsWith('(async()=>{')||!source.endsWith('})();'))throw new Error('unexpected rescue runtime');
