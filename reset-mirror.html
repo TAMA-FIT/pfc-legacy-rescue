@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#187a51">
+  <title>PFC Mirror 完全修復</title>
+  <style>
+    html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;background:#f4f8f6;color:#183126}.wrap{min-height:100vh;display:grid;place-items:center;padding:24px;box-sizing:border-box}.card{width:min(420px,100%);background:#fff;border:1px solid #dbe8e1;border-radius:24px;padding:28px 22px;box-sizing:border-box;box-shadow:0 10px 36px rgba(12,52,34,.1);text-align:center}.mark{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#187a51;color:#fff;font-size:24px;font-weight:900;margin:0 auto 16px}.title{font-size:22px;font-weight:900}.status{margin-top:14px;line-height:1.8;font-size:15px}.note{margin-top:12px;color:#687970;font-size:13px;line-height:1.7}.ok{color:#187a51;font-weight:800}.err{color:#b42318;font-weight:800}.btn{display:inline-block;margin-top:18px;padding:13px 18px;border-radius:14px;background:#187a51;color:white;text-decoration:none;font-weight:900;border:0;font-size:16px}
+  </style>
+</head>
+<body>
+  <div class="wrap"><div class="card"><div class="mark">PFC</div><div class="title">表示を完全修復しています</div><div id="status" class="status">古い更新機能を解除しています…</div><div class="note">食事記録・目標設定などの保存データは削除しません。</div><div id="action"></div></div></div>
+<script>
+(async()=>{
+  'use strict';
+  const status=document.getElementById('status');
+  const action=document.getElementById('action');
+  const target='https://tama-fit.github.io/pfc-mirror/';
+  const mirrorPath='/pfc-mirror/';
+  try{
+    let unregistered=0;
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      for(const reg of regs){
+        let isMirror=false;
+        try{isMirror=new URL(reg.scope).pathname.startsWith(mirrorPath);}catch(_){}
+        if(isMirror){try{if(await reg.unregister())unregistered++;}catch(_){}}
+      }
+    }
+    status.textContent='古い Service Worker を解除しました。キャッシュを整理しています…';
+
+    if('caches' in window){
+      const names=await caches.keys();
+      for(const name of names){
+        if(/(pfc-mirror|tamafit-pfc-mirror)/i.test(name)){
+          try{await caches.delete(name);}catch(_){}
+          continue;
+        }
+        try{
+          const c=await caches.open(name);
+          const reqs=await c.keys();
+          await Promise.all(reqs.filter(req=>{try{return new URL(req.url).pathname.startsWith(mirrorPath);}catch(_){return false;}}).map(req=>c.delete(req)));
+        }catch(_){}
+      }
+    }
+
+    status.textContent='最新版がサーバーにあるか確認しています…';
+    const check=await fetch(target+'?rescue_check='+Date.now(),{cache:'no-store',credentials:'omit'});
+    const text=await check.text();
+    const latest=text.includes('20260904-v40-nosw1') || text.includes('V40 VOICE');
+    if(!check.ok || !latest) throw new Error('latest root not visible yet');
+
+    status.innerHTML='<span class="ok">修復完了。最新版へ移動します。</span>';
+    const u=new URL(target);
+    u.searchParams.set('repaired',Date.now());
+    setTimeout(()=>location.replace(u.href),700);
+  }catch(err){
+    console.error(err);
+    status.innerHTML='<span class="err">修復処理は完了しましたが、最新版の公開確認がまだ取れません。</span>';
+    action.innerHTML='<a class="btn" href="'+target+'?manual_rescue='+Date.now()+'">最新版を開く</a>';
+  }
+})();
+</script>
+</body>
+</html>
