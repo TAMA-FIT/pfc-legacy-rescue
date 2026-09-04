@@ -1,0 +1,12 @@
+{
+  "schema_version": 2,
+  "project_slug": "pfc-legacy-rescue",
+  "display_name": "PFC Legacy Rescue",
+  "goal": "Publish an isolated static PWA that rescues legacy PFC localStorage and TamaFitPhotoDB BodyPhotos on the old origin, validates the local rescue JSON, and restores into the current PFC only after explicit confirmation. No backend, no rescued-data upload, no modification to pfc-mirror or ILYNTO Core.",
+  "created_at": "2026-09-04T08:23:44.329Z",
+  "registry_authority": "local",
+  "memory_mode": "central_project_memory",
+  "factory_plan_digest": "d9c00db8aaa2921abd20c07b8dbbe03dbe655c10fc23d4a86cffd39ae83a29a5",
+  "factory_template_id": "builtin.blank",
+  "factory_template_version": 1
+}
