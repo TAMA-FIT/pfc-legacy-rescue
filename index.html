@@ -51,6 +51,7 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
 <section class="card notice">
   <b>最初に：Safariの履歴・Webサイトデータは消さないでください。</b>
   <p class="small">旧GitHubアカウントは停止済みなので、昔のPFCを開くと404になることがあります。それで正常です。</p>
+  <div class="stop">前に作った「PFC救出」は今回の修正前のものです。下の「修正版をコピー」でURLを上書きしてください。</div>
 </section>
 
 <section class="card">
@@ -59,7 +60,7 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
     <li><b>① このページをSafariのブックマークに追加</b>Safari下の「共有（□に↑）」→「ブックマークを追加」→「保存」。</li>
     <li><b>② 下のボタンを押す</b>貼り付ける内容が自動でコピーされます。中身を見る必要はありません。</li>
   </ul>
-  <button id="copy-rescue" class="primary">貼り付けるものをコピー</button>
+  <button id="copy-rescue" class="primary">修正版をコピー</button>
   <ul class="steps" style="margin-top:12px">
     <li><b>③ Safariの「本のマーク」→「ブックマーク」→「編集」</b>さっき追加した「PFCデータ救出」を開きます。</li>
     <li><b>④ 名前を「PFC救出」にする</b></li>
@@ -94,21 +95,34 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
   <p class="small">救出JSONには体型写真も残してあります。通常のPFC復元で写真まで反映されなくても、救出ファイル自体は消さずに保管してください。</p>
 </section>
 
-<footer>v1.3.0 / iPhone専用</footer>
+<footer>v1.4.0 / iPhone専用</footer>
 </main>
 
 <script>
 (()=>{'use strict';
-const runtime=new URL('./rescue-runtime.js?v=1.3.0',location.href).href;
-const code=`javascript:(()=>{if(document.querySelector('script[data-pfc-rescue-runtime="rescue"]'))return;const s=document.createElement('script');s.src=${JSON.stringify(runtime)};s.dataset.pfcRescueRuntime='rescue';s.onerror=()=>alert('PFC救出を読み込めませんでした。通信状態を確認してください。');document.documentElement.appendChild(s)})()`;
-function toast(text){const e=document.createElement('div');e.className='toast';e.textContent=text;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
+function toast(text){const e=document.createElement('div');e.className='toast';e.textContent=text;document.body.appendChild(e);setTimeout(()=>e.remove(),2600)}
 async function copyText(text){
   try{await navigator.clipboard.writeText(text);return true}catch(_){}
   const a=document.createElement('textarea');a.value=text;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();
   let ok=false;try{ok=document.execCommand('copy')}catch(_){}
   a.remove();return ok;
 }
-document.getElementById('copy-rescue').onclick=async()=>toast(await copyText(code)?'コピーしました。次はブックマークを編集します。':'コピーできませんでした。');
+async function buildSelfContainedBookmarklet(){
+  const r=await fetch('./rescue-runtime.js?v=1.4.0',{cache:'no-store'});
+  if(!r.ok)throw new Error('rescue runtime unavailable');
+  const source=(await r.text()).trim();
+  if(!source.startsWith('(async()=>{')||!source.endsWith('})();'))throw new Error('unexpected rescue runtime');
+  return 'javascript:'+encodeURIComponent(source);
+}
+document.getElementById('copy-rescue').onclick=async e=>{
+  const b=e.currentTarget;b.disabled=true;b.textContent='準備中…';
+  try{
+    const code=await buildSelfContainedBookmarklet();
+    const ok=await copyText(code);
+    toast(ok?'修正版をコピーしました。ブックマークのURL欄へ貼り付けてください。':'コピーできませんでした。');
+  }catch(_){toast('修正版を準備できませんでした。このページを再読み込みしてください。')}
+  finally{b.disabled=false;b.textContent='修正版をコピー'}
+};
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script>
