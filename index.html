@@ -42,20 +42,20 @@ details summary{list-style:none}details summary::-webkit-details-marker{display:
 
 <section class="notice">
   <strong>まずこれだけ</strong>
-  <p>旧PFCが開くなら、救出コードやブックマーク設定は不要です。<b>旧PFCでバックアップ保存 → 新PFCで読み込み</b>だけで主要データを移せます。</p>
+  <p>旧GitHubアカウント <code>r9222</code> は停止済みなので、<b>404になるのが通常です。</b> まず本命の旧PFC URLを開きます。昔のPWA / Service Workerキャッシュが端末に残っていれば、正しいパスから旧アプリが復活する可能性があります。</p>
 </section>
 
 <section class="card">
   <div class="section-head"><span class="step">1</span><h2>旧PFCを開く</h2></div>
-  <p>ホーム画面に昔のPFCアプリが残っている人は、まずそのアイコンから開いてください。残っていなければ下のボタンを押します。</p>
-  <a class="primary" href="https://r9222.github.io/-HP002test/" target="_blank" rel="noopener">旧PFCを開く</a>
-  <button class="secondary" data-copy-text="https://r9222.github.io/-HP002test/">旧PFC URLをコピー</button>
-  <p class="hint"><b>旧PFC URL</b><br><code>https://r9222.github.io/-HP002test/</code></p>
+  <p>ホーム画面に昔のPFCアプリが残っている場合は、そのアイコンを先に試してください。残っていない場合は下の本命URLを開きます。404でも異常ではありません。</p>
+  <a class="primary" href="https://r9222.github.io/tamafittest0217-HP/" target="_blank" rel="noopener">旧PFCを開く</a>
+  <button class="secondary" data-copy-text="https://r9222.github.io/tamafittest0217-HP/">旧PFC URLをコピー</button>
+  <p class="hint"><b>旧PFC URL</b><br><code>https://r9222.github.io/tamafittest0217-HP/</code></p>
 </section>
 
 <section class="card">
-  <div class="section-head"><span class="step">2</span><h2>旧PFCでバックアップを保存</h2></div>
-  <p>旧PFCが表示できたら、画面の一番下まで移動して、次のボタンを押します。</p>
+  <div class="section-head"><span class="step">2</span><h2>旧PFCが復活した場合だけバックアップ</h2></div>
+  <p>旧PFC本体が表示できた場合だけ、画面の一番下まで移動して次のボタンを押します。404のままならこの手順は飛ばし、下の「404のままの場合」を使います。</p>
   <div class="safe" style="font-size:16px;text-align:center">💾 バックアップをダウンロード保存</div>
   <p class="hint">保存されるファイル名は <code>pfc_backup_日付.json</code> の形式です。</p>
 </section>
@@ -80,9 +80,9 @@ details summary{list-style:none}details summary::-webkit-details-marker{display:
 </section>
 
 <details class="card">
-  <summary style="cursor:pointer;font-weight:900;font-size:18px">旧PFCが404 / 真っ白 / 体型写真も救出したい</summary>
+  <summary style="cursor:pointer;font-weight:900;font-size:18px">404のままの場合 / 体型写真も救出したい</summary>
   <div style="margin-top:18px">
-    <p>ブラウザの保存データ自体は残っている可能性があります。ここだけ高度な救出モードを使います。</p>
+    <p>アカウント停止で404でも、Safari内の旧 <code>r9222.github.io</code> の保存データ自体は残っている可能性があります。新サイトからはブラウザの安全仕様で直接読めないため、ここだけ旧404ページ上で救出処理を実行します。</p>
     <p class="safe">旧PFCの保存領域は読み取り専用で扱い、救出データをサーバーへ送信しません。</p>
     <div class="section-head" style="margin-top:18px"><span class="step">救出</span><h2>救出コード</h2></div>
     <button class="primary" data-copy-runtime="rescue">救出コードをコピー</button>
@@ -106,20 +106,20 @@ details summary{list-style:none}details summary::-webkit-details-marker{display:
   <h2>大事なこと</h2>
   <ul>
     <li>ブラウザの履歴・サイトデータ・キャッシュは消さないでください。</li>
-    <li>旧PFCの正しいURLは <code>https://r9222.github.io/-HP002test/</code> です。</li>
+    <li>旧PFCの正しいURLは <code>https://r9222.github.io/tamafittest0217-HP/</code> です。</li>
     <li>旧PFCの標準バックアップには体型写真は含まれません。</li>
   </ul>
 </section>
 
-<footer><span id="runtime-status">PWA確認中…</span><span>v1.1.0</span></footer>
+<footer><span id="runtime-status">PWA確認中…</span><span>v1.2.0</span></footer>
 </main>
 
 <script>
 (()=>{'use strict';
 const BASE=new URL('.',location.href).href.replace(/\/$/,'');
 const mk=(url,kind)=>`javascript:(()=>{if(document.querySelector('script[data-pfc-rescue-runtime="${kind}"]'))return;const s=document.createElement('script');s.src=${JSON.stringify(url)};s.dataset.pfcRescueRuntime=${JSON.stringify(kind)};s.onerror=()=>alert('PFC救出runtimeを読み込めませんでした。通信状態を確認してください。');document.documentElement.appendChild(s)})()`;
-const rescueCode=mk(BASE+'/rescue-runtime.js?v=1.1.0','rescue');
-const restoreCode=mk(BASE+'/restore-runtime.js?v=1.1.0','restore');
+const rescueCode=mk(BASE+'/rescue-runtime.js?v=1.2.0','rescue');
+const restoreCode=mk(BASE+'/restore-runtime.js?v=1.2.0','restore');
 document.getElementById('rescue-code').value=rescueCode;
 document.getElementById('restore-code').value=restoreCode;
 document.getElementById('rescue-drag').href=rescueCode;
