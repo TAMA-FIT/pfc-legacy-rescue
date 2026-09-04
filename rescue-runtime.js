@@ -1,7 +1,7 @@
 (async()=>{
 'use strict';
 if(window.__PFC_LEGACY_RESCUE_RUNNING__)return;window.__PFC_LEGACY_RESCUE_RUNNING__=true;
-const EXPECTED='https://r9222.github.io',DB='TamaFitPhotoDB',STORE='BodyPhotos';
+const EXPECTED='https://tamafit.github.io',DB='TamaFitPhotoDB',STORE='BodyPhotos';
 const F={dat:'tf_dat',tg:'tf_tg',fav:'tf_fav',favSettings:'tf_fav_settings',my:'tf_my',hist:'tf_hist',date:'tf_date',body:'tf_body'};
 function readPhotos(){return new Promise(resolve=>{if(!('indexedDB'in window)){resolve({photos:[],status:'unsupported'});return}let req,upgrade=false;try{req=indexedDB.open(DB)}catch(_){resolve({photos:[],status:'open-failed'});return}req.onupgradeneeded=e=>{upgrade=true;try{e.target.transaction.abort()}catch(_){}};req.onerror=()=>resolve({photos:[],status:upgrade?'not-found':'open-failed'});req.onsuccess=e=>{const db=e.target.result;if(!db.objectStoreNames.contains(STORE)){db.close();resolve({photos:[],status:'store-not-found'});return}const r=db.transaction(STORE,'readonly').objectStore(STORE).getAll();r.onsuccess=()=>{const p=Array.isArray(r.result)?r.result:[];db.close();resolve({photos:p,status:'ok'})};r.onerror=()=>{db.close();resolve({photos:[],status:'read-failed'})}}})}
 function name(){const d=new Date(),p=n=>String(n).padStart(2,'0');return`PFC_rescue_full_${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}-${p(d.getMinutes())}.json`}

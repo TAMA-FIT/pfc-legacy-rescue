@@ -80,7 +80,7 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
     <li><b>② その404画面で「本のマーク」→「PFC救出」をタップ</b>「ブックマークを実行」など難しく考えなくてOKです。保存した「PFC救出」を普通にタップするだけです。</li>
     <li><b>③ 「旧データを検出しました」が出たら「JSONを保存・共有」</b>共有画面で「ファイルに保存」を選びます。</li>
   </ul>
-  <a class="primary" href="https://r9222.github.io/tamafittest0217-HP/" target="_blank" rel="noopener">昔のPFCを開く</a>
+  <a class="primary" href="https://tamafit.github.io/pfc/" target="_blank" rel="noopener">昔のPFCを開く</a>
   <div class="stop">「PFC救出」を押しても何も出ない場合は、そこで止めてスクリーンショットを送ってください。Safariのデータは消さないでください。</div>
 </section>
 
@@ -95,7 +95,7 @@ footer{padding:18px 4px 0;color:var(--muted);font-size:12px;text-align:center}
   <p class="small">救出JSONには体型写真も残してあります。通常のPFC復元で写真まで反映されなくても、救出ファイル自体は消さずに保管してください。</p>
 </section>
 
-<footer>v1.5.0 / iPhone専用</footer>
+<footer>v1.6.0 / iPhone専用</footer>
 </main>
 
 <script>
@@ -125,7 +125,7 @@ function manualCopy(text){
 }
 async function prepareBookmarklet(){
   try{
-    const r=await fetch('./rescue-runtime.js?v=1.5.0',{cache:'no-store'});
+    const r=await fetch('./rescue-runtime.js?v=1.6.0',{cache:'no-store'});
     if(!r.ok)throw new Error('rescue runtime unavailable');
     const source=(await r.text()).trim();
     if(!source.startsWith('(async()=>{')||!source.endsWith('})();'))throw new Error('unexpected rescue runtime');
